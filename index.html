@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendence Entry Project</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+</head>
+
+<body>
+    <div style="position: absolute;  display: flex; justify-content: center; height: 100%;width: 100%;">
+        <div id="customAlert" class="alert">
+            Attendence Updated successfully!
+        </div>
+    </div>
+    <div class="main">
+        <div class="header">
+            <div class="logo-ico">Urjafied</div>
+            <div class="user-prf">
+
+                <div class="prf">
+                    <div class="prf-ico"><iconify-icon icon="si:user-fill" width="2.5rem"
+                            style="color: #fac036;"></iconify-icon></div>
+                </div>
+            </div>
+        </div>
+        <div class="welcome">
+            <p><dotlottie-player src="https://lottie.host/664a4458-faaf-4f4a-963e-f9d1814045ef/SMpxITUiub.json"
+                    background="transparent" speed="1" style="width: 6rem;" loop="2" autoplay></dotlottie-player></p>
+            <p>welcome User !!</p>
+        </div>
+
+        <div class="bar"></div>
+        <div class="content">
+            <section class="sec-a">
+                <div class="mrk-att-lebl">Mark Your Attandance</div>
+                <div style="margin: 1rem;">
+                    <input type="checkbox" id="halfday" name="halfday" value="halfday">
+                    <label for="halfday">Half Working Day</label>
+                </div>
+                <div class="sec-a-i" id="sec-a-i">
+                    <form id="myForm">
+                        <div class="sec-a-r1">
+                            <div class="date" id="date"></div>
+
+                            <select name="shift" id="shift">
+                                <option value="fullday" selected>Full Day</option>
+                            </select>
+
+                        </div>
+                        <div class="sec-a-r2" id="sec-a-r2">
+                            <div style="display: flex; gap: 2rem;">
+                                <div style="text-align: center;">
+                                    <p><b>check in</b></p>
+                                    <input type="time" required>
+                                </div>
+                                <div style="text-align: center;">
+                                    <p><b>check out</b></p>
+                                    <input type="time" required>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit"><iconify-icon icon="fluent-emoji-flat:raised-hand"
+                                        width="3rem"></iconify-icon></button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <section class="sec-b">
+                <div class="mrk-att-lebl">Show Attandance</div>
+                <div>
+                    <select name="sh-att" id="sh-att">
+
+                        <option value="tweek" selected>This Week</option>
+                        <option value="tmnth">This Month</option>
+                        <option value="ltmnth">Last 3 Month</option>
+                    </select>
+                </div>
+                <div class="sec-b-i" id="sec-b-i">
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+    <script>
+        // for Today date 
+        let dateVar = document.getElementById("date");
+        const today = new Date();
+        const formattedDate = today.toDateString();
+        dateVar.textContent = formattedDate;
+    </script>
+    <script>
+        let shift = document.getElementById('shift')
+        let halfday = document.getElementById("halfday");
+        halfday.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                shift.innerHTML = `<option value="fullday" selected>Full Day</option>
+                                <option value="1st">1st Half</option>
+                                <option value="1st">2nd Half</option>`;
+            }
+            else {
+                shift.innerHTML = `<option value="fullday" selected>Full Day</option>`;
+            }
+        })
+    </script>
+    <script>
+        function alreadyDone() {
+            let seci = document.getElementById('sec-a-r2');
+
+            seci.innerHTML = `<div class="update-attd">
+                                <p><iconify-icon icon="fluent-emoji:smiling-face" width="5rem"></iconify-icon></p>
+                                <p>Attendence Already Done</p>                              
+                            </div>`
+        }
+    </script>
+    <script>
+        const form = document.querySelector('#myForm');
+        const alertBox = document.querySelector('#customAlert');
+
+        function showAlert(message) {
+            alertBox.textContent = message;  // Set alert message
+            alertBox.classList.add('show');  // Show the alert
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+                alreadyDone();
+                document.getElementById('sec-a-r2').style.transform = 'rotateX(180deg)';
+            }, 3000);
+
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            showAlert('Attendence Updated successfully!');
+        });
+    </script>
+    <script src="attHistory.js"></script>
+</body>
+
+</html>
